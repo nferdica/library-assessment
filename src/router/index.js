@@ -1,30 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import ListaLivros  from '../pages/Livros/LivrosList.vue'
+import FormLivro    from '../pages/Livros/LivroForm.vue'
+import Home         from '../pages/Home.vue'
+import AutorPage    from '../pages/Autores/AutorPage.vue'
+import AutorForm    from '../pages/Autores/AutorForm.vue'
+import EditoraPage  from '../pages/Editoras/EditoraPage.vue'
+import EditoraForm  from '../pages/Editoras/EditoraForm.vue'
+import AutorsList from '../pages/Autores/AutorsList.vue'
+import EditorasList from '../pages/Editoras/EditorasList.vue'
 
-const router = createRouter({
+const routes = [
+  { path: '/',                       component: Home },
+  { path: '/livros',                 component: ListaLivros },
+  { path: '/livros/:id(novo|\\d+)',  component: FormLivro,    props: true },
+  { path: '/autores',                 component: AutorsList,    props: true },
+  { path: '/autores/novo',           component: AutorForm,    props: true },
+  { path: '/autores/:id(\\d+)/editar', component: AutorForm,   props: true },
+  { path: '/autores/:id(\\d+)',      component: AutorPage,    props: true },
+  { path: '/editoras',                component: EditorasList,    props: true },
+  { path: '/editoras/novo',           component: EditoraForm,   props: true },
+  { path: '/editoras/:id(\\d+)/editar', component: EditoraForm,  props: true },
+  { path: '/editoras/:id(\\d+)',      component: EditoraPage,   props: true },
+]
 
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-
-        {
-            path: '/:pathMatch(.*)*',
-            name: '404',
-            component: () => import('../pages/404.vue'),
-        },
-        {
-            path: '/',
-            name: 'wrapper',
-            component: () => import('../components/AppWrapper.vue'),
-            children: [
-
-              {
-                path: 'home',
-                name: 'home',
-                component: () => import('../components/Home.vue')
-              }
-            ]
-        },
-        
-    ]
+export default createRouter({
+  history: createWebHistory(),
+  routes,
 })
-
-export default router
